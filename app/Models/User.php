@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -10,6 +9,13 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
+
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'utilisateurs'; // Spécifie la table utilisateurs
 
     /**
      * The attributes that are mass assignable.
@@ -33,15 +39,35 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the attributes that should be cast.
+     * The attributes that should be cast.
      *
      * @return array<string, string>
      */
-    protected function casts(): array
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+    ];
+
+    /**
+     * Relations
+     */
+    public function articles()
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+        return $this->hasMany(Article::class, 'auteur_id');
+    }
+
+    public function commentaires()
+    {
+        return $this->hasMany(Commentaire::class, 'utilisateur_id');
+    }
+
+    public function participationsEvenements()
+    {
+        return $this->hasMany(ParticipationEvenement::class, 'utilisateur_id');
+    }
+
+    public function galerie()
+    {
+        return $this->hasMany(Galerie::class, 'auteur_id');
     }
 }
