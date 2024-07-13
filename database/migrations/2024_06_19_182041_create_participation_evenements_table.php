@@ -13,6 +13,7 @@ class CreateParticipationEvenementsTable extends Migration
             $table->foreignId('utilisateur_id')->constrained('utilisateurs')->onDelete('cascade');
             $table->boolean('participation')->default(false);
             $table->primary(['evenement_id', 'utilisateur_id']);
+            $table->timestamps();
         });
     }
 

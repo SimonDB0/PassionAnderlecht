@@ -10,7 +10,7 @@ class CreateMatchsTable extends Migration
     {
         Schema::create('matchs', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('date_match');
+            $table->dateTime('date');
             $table->string('equipe_adverse');
             $table->boolean('domicile');
             $table->string('resultat')->nullable();

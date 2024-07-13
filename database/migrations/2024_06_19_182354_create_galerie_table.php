@@ -8,7 +8,7 @@ class CreateGalerieTable extends Migration
 {
     public function up()
     {
-        Schema::create('galerie', function (Blueprint $table) {
+        Schema::create('galeries', function (Blueprint $table) {
             $table->id();
             $table->string('url');
             $table->foreignId('utilisateur_id')->constrained('utilisateurs')->onDelete('cascade');
